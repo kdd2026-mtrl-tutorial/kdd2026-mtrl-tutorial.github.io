@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDD 2026 Tutorial: Multi-Turn RL for LLMs</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --accent: #ff9900;
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #212121;
+            --text-secondary: #555;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 48px 0 40px;
+            text-align: center;
+        }
+
+        header .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.3;
+            max-width: 800px;
+            margin: 0 auto 16px;
+        }
+
+        header .meta {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        header .meta a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        section {
+            padding: 48px 0;
+        }
+
+        section + section {
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .tutor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .tutor-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .tutor-card .presenter-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+
+        .tutor-card .role {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tutor-card .affiliation {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .tutor-card .bio {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .tutor-card .email {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .tutor-card .email:hover {
+            text-decoration: underline;
+        }
+
+        .outline-list {
+            list-style: none;
+        }
+
+        .outline-list li {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+
+        .outline-list li .part-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .outline-list li .part-num {
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .outline-list li .part-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .outline-list li .part-time {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        .outline-list li p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .lab-tag {
+            display: inline-block;
+            background: #fff3e0;
+            color: #e65100;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-top: 8px;
+        }
+
+        .abstract {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .info-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .info-item .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-item .value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 24px 0;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.3rem;
+            }
+
+            .tutors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .outline-list li .part-header {
+                flex-wrap: wrap;
+            }
+
+            .outline-list li .part-time {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <span class="badge">KDD 2026 HANDS-ON TUTORIAL</span>
+            <h1>Multi-Turn Reinforcement Learning for Large Language Models: From Theory to Practice with Amazon SageMaker AI</h1>
+            <p class="meta">August 9&ndash;13, 2026 &middot; Jeju Island, Republic of Korea</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>Overview</h2>
+            <p class="abstract">
+                Production LLM-based systems such as coding agents, web navigators, and tool-calling assistants operate over multiple turns of interaction with users, tools, and environments. This hands-on tutorial provides both a rigorous algorithmic and practical introduction to multi-turn RL finetuning for LLMs. Using Amazon SageMaker AI, participants progress through four labs: (1) environment and reward function design, (2) multi-turn trajectory collection and GRPO-based training, (3) reward densification and credit assignment strategies, and (4) evaluation, failure diagnosis and deployment.
+            </p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">Duration</div>
+                    <div class="value">3 Hours</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Format</div>
+                    <div class="value">Hands-on Labs</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Prerequisites</div>
+                    <div class="value">Python + DL Basics</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Compute</div>
+                    <div class="value">Cloud (No Local GPU)</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tutors</h2>
+            <p class="abstract" style="margin-bottom: 20px;">All authors are part of the Amazon team that launched Reinforcement Fine-Tuning (RFT) as a service on Amazon SageMaker AI and Amazon Bedrock, enabling developers to customize leading open-source models using techniques like RFT, Supervised Fine-Tuning (SFT), and Direct Preference Optimization (DPO).</p>
+            <div class="tutors-grid">
+                <div class="tutor-card">
+                    <h3>Sapana Chaudhary</h3>
+                    <span class="presenter-badge">In-Person Presenter</span>
+                    <div class="role">Amazon Web Services</div>
+                    <div class="affiliation">Applied Scientist at AWS. Recent work spans RL-based code optimization, neuro-symbolic reward modeling for chain-of-thought validation, reasoning distillation, LLM-based web agents, risk-averse RLHF, and pedagogical alignment of LLMs.</div>
+                    <a class="email" href="mailto:chausapa@amazon.com">chausapa@amazon.com</a>
+                </div>
+                <div class="tutor-card">
+                    <h3>Zhe Wang</h3>
+                    <div class="role">Amazon Web Services</div>
+                    <div class="affiliation">Applied Scientist at AWS. Working on LLM post-training and reinforcement fine-tuning. Research spans responsible AI alignment and scalable optimization methods.</div>
+                    <a class="email" href="mailto:zhebeta@amazon.com">zhebeta@amazon.com</a>
+                </div>
+                <div class="tutor-card">
+                    <h3>Jiayu Li</h3>
+                    <div class="role">Amazon Web Services</div>
+                    <div class="affiliation">Applied Scientist at AWS. Recent research spans RL-based prompt optimization, data synthesis from limited seed data for supervised fine-tuning, and RL-based inverse design for circuits.</div>
+                    <a class="email" href="mailto:jlijiayu@amazon.com">jlijiayu@amazon.com</a>
+                </div>
+                <div class="tutor-card">
+                    <h3>Yuyang (Bernie) Wang</h3>
+                    <div class="role">Amazon Web Services</div>
+                    <div class="affiliation">Principal Scientist at Amazon, where he aims to democratize advanced AI/ML capabilities, making them accessible to practitioners across diverse domains.</div>
+                    <a class="email" href="mailto:yuyawang@amazon.com">yuyawang@amazon.com</a>
+                </div>
+                <div class="tutor-card">
+                    <h3>Xuan Zhu</h3>
+                    <div class="role">Amazon Web Services</div>
+                    <div class="affiliation">Applied Science Manager at AWS. Leads model customization services including Reinforcement Fine-Tuning on SageMaker AI and Amazon Bedrock. Her team builds production-grade infrastructure for model post-training at scale.</div>
+                    <a class="email" href="mailto:zhuxuan@amazon.com">zhuxuan@amazon.com</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tutorial Outline</h2>
+            <ul class="outline-list">
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 1</span>
+                        <span class="part-title">Motivation &amp; Foundations</span>
+                        <span class="part-time">45 min</span>
+                    </div>
+                    <p>Overview of multi-turn agentic challenges and why single-turn training fails. Multi-turn MDP formulation, GRPO algorithm introduction, reward taxonomy (trajectory-level, turn-level, composite), and environment design patterns.</p>
+                    <span class="lab-tag">Lab: Implement a multi-turn tool-calling environment and composite reward function</span>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 2</span>
+                        <span class="part-title">Multi-Turn GRPO Training</span>
+                        <span class="part-time">30 min</span>
+                    </div>
+                    <p>Configure rollout parameters, launch a SageMaker GRPO training job, inspect collected trajectories, monitor training dynamics via MLflow, and compare base model vs. RL-trained model on held-out tasks.</p>
+                    <span class="lab-tag">Lab: End-to-end GRPO training on SageMaker AI</span>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 3</span>
+                        <span class="part-title">Reward Densification &amp; Credit Assignment</span>
+                        <span class="part-time">50 min</span>
+                    </div>
+                    <p>Sparse reward problem, densification strategies (milestone decomposition, LLM-as-judge), credit assignment (turn-level advantage estimation, temporal discounting), and reward hacking detection.</p>
+                    <span class="lab-tag">Lab: Sparse vs. dense rewards, potential-based shaping, reward hacking experiments</span>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 4</span>
+                        <span class="part-title">Evaluation, Deployment &amp; Wrap-Up</span>
+                        <span class="part-time">30 min</span>
+                    </div>
+                    <p>Trajectory-level evaluation metrics, failure diagnosis via trajectory visualization, MLflow dashboards for stability warnings. One-click deployment to Amazon Bedrock. Future directions and Q&amp;A.</p>
+                    <span class="lab-tag">Lab: Evaluate, diagnose, and deploy trained agents</span>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Target Audience</h2>
+            <p class="abstract">
+                ML engineers, data scientists, applied researchers, and technical leaders who build LLM-powered multi-turn agentic systems (coding assistants, conversational agents, tool-using systems, web automation). Basic Python and Jupyter notebook familiarity and a foundational understanding of deep learning and LLM architectures (transformers, tokenization) are the only prerequisites. No prior experience with reinforcement learning or SageMaker is required.
+            </p>
+        </section>
+
+        <section>
+            <h2>Materials</h2>
+            <p class="abstract">
+                All notebooks, environment code, reward function templates, slides, and demo videos will be provided via a public GitHub repository. Materials will be posted here closer to the tutorial date.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>KDD 2026 &middot; 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining &middot; Jeju Island, Republic of Korea</p>
+        </div>
+    </footer>
+</body>
+</html>
