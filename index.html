@@ -408,8 +408,13 @@
             </p>
 
             <p class="abstract" style="margin-top: 16px;">
-                <strong>MTRL on Amazon SageMaker AI.</strong> This hands-on tutorial provides a practical introduction to multi-turn RL fine-tuning for LLMs on Amazon SageMaker AI. We will run end-to-end training jobs, standalone evaluations, and learn best practices to actually maximize the benefits of MTRL for your agentic environment. You will train the <strong>GPT-OSS-20B</strong> model to drive an agent hosted on Amazon Bedrock AgentCore, using the <code>aircraft_inspection</code> task from <a href="https://github.com/amazon-science/SOP-Bench" target="_blank" rel="noopener">SOP-Bench</a> as a concrete, reward-scored environment. SageMaker AI MTRL offers:
+                <strong>MTRL on Amazon SageMaker AI.</strong> This hands-on tutorial provides a practical introduction to multi-turn RL fine-tuning for LLMs on Amazon SageMaker AI. We will run end-to-end training jobs, standalone evaluations, and learn best practices to actually maximize the benefits of MTRL for your agentic environment. You will train the <strong>GPT-OSS-20B</strong> model to drive an agent hosted on Amazon Bedrock AgentCore, using the <code>aircraft_inspection</code> task from <a href="https://github.com/amazon-science/SOP-Bench" target="_blank" rel="noopener">SOP-Bench</a> as a concrete, reward-scored environment.
             </p>
+            <figure class="figure">
+                <img src="images/service-overview.jpg" alt="SageMaker AI Multi-Turn RL service overview: your agent RL environment communicates bidirectionally with the SageMaker job runtime (Sample, SampleWithResponseStream, CompleteRollout, UpdateReward); the MTRL service runs a training loop and trajectory collection plus evaluation, is driven by the MultiTurnRLTrainer, MultiTurnRLEvaluator, and ModelBuilder SDKs, and writes outputs to a Model Package, checkpoints in S3, CloudWatch, and MLflow.">
+                <figcaption>Amazon SageMaker AI Multi-Turn RL - service overview.</figcaption>
+            </figure>
+            <p class="abstract" style="margin-top: 16px;">SageMaker AI MTRL offers:</p>
             <ul class="feature-list">
                 <li><strong>A modular agent-environment interface</strong> that keeps integration low-code while giving you full algorithmic control. Custom rewards, custom tool loops, and multi-turn conversation shapes are all yours to define.</li>
                 <li><strong>Serverless execution</strong> that simplifies infrastructure concerns, so you get production-scale agentic RL at per-token pricing without provisioning or managing GPU clusters.</li>
@@ -419,10 +424,6 @@
                 <li><strong>Trajectory and reward observability in MLflow</strong> managed by Amazon SageMaker AI, so you can read what your agent did turn by turn, and across training steps.</li>
                 <li><strong>Evaluation jobs</strong> that report reward, pass@k, trajectory metrics, and more before you deploy to a SageMaker AI endpoint or Amazon Bedrock.</li>
             </ul>
-            <figure class="figure">
-                <img src="images/service-overview.jpg" alt="SageMaker AI Multi-Turn RL service overview: your agent RL environment communicates bidirectionally with the SageMaker job runtime (Sample, SampleWithResponseStream, CompleteRollout, UpdateReward); the MTRL service runs a training loop and trajectory collection plus evaluation, is driven by the MultiTurnRLTrainer, MultiTurnRLEvaluator, and ModelBuilder SDKs, and writes outputs to a Model Package, checkpoints in S3, CloudWatch, and MLflow.">
-                <figcaption>Amazon SageMaker AI Multi-Turn RL - service overview.</figcaption>
-            </figure>
         </section>
 
         <section id="organizers">
