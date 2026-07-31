@@ -495,42 +495,50 @@
 
         <section id="outline">
             <h2>Tutorial Outline</h2>
+            <p class="abstract" style="margin-bottom: 20px;">Five parts that take you end to end: the foundations of multi-turn RL, then a hands-on path - set up and deploy your agent, preprocess data and launch training, apply best practices to get MTRL working for your task, and finally evaluate and deploy the fine-tuned model.</p>
             <ul class="outline-list">
                 <li>
                     <div class="part-header">
                         <span class="part-num">Part 1</span>
                         <span class="part-title">Motivation &amp; Foundations</span>
-                        <span class="part-time">45 min</span>
+                        <span class="part-time">Talk</span>
                     </div>
-                    <p>Overview of multi-turn agentic challenges and why single-turn training fails. Multi-turn MDP formulation, GRPO algorithm introduction, reward taxonomy (trajectory-level, turn-level, composite), and environment design patterns.</p>
-                    <span class="lab-tag">Lab: Implement a multi-turn tool-calling environment and composite reward function</span>
+                    <p>Why single-turn training falls short for agentic systems, and the core ideas behind multi-turn RL: framing an agentic task as a sequence of decisions, the multi-turn rollout, reward design (trajectory-level, turn-level, composite), and the GRPO family of algorithms. Grounds the hands-on parts that follow.</p>
                 </li>
                 <li>
                     <div class="part-header">
                         <span class="part-num">Part 2</span>
-                        <span class="part-title">Multi-Turn GRPO Training</span>
-                        <span class="part-time">30 min</span>
+                        <span class="part-title">Environment Setup: Agent &amp; Rollout Deployment</span>
+                        <span class="part-time">Hands-on</span>
                     </div>
-                    <p>Configure rollout parameters, launch a SageMaker GRPO training job, inspect collected trajectories, monitor training dynamics via MLflow, and compare base model vs. RL-trained model on held-out tasks.</p>
-                    <span class="lab-tag">Lab: End-to-end GRPO training on SageMaker AI</span>
+                    <p>How the agent participates in the training loop: SageMaker AI sends a prompt, your agent calls the policy model, takes actions in your environment, and reports a reward. We implement the SOP-Bench rollout agent and deploy it to Amazon Bedrock AgentCore, and cover how to integrate <em>any</em> agent or environment - managed on AgentCore or bring-your-own. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-agent.html" target="_blank" rel="noopener">Preparing your agent</a>.</p>
+                    <span class="lab-tag">Lab: Implement and deploy the rollout agent to AgentCore</span>
                 </li>
                 <li>
                     <div class="part-header">
                         <span class="part-num">Part 3</span>
-                        <span class="part-title">Reward Densification &amp; Credit Assignment</span>
-                        <span class="part-time">50 min</span>
+                        <span class="part-title">Data Preprocessing &amp; Training Job Submission</span>
+                        <span class="part-time">Hands-on</span>
                     </div>
-                    <p>Sparse reward problem, densification strategies (milestone decomposition, LLM-as-judge), credit assignment (turn-level advantage estimation, temporal discounting), and reward hacking detection.</p>
-                    <span class="lab-tag">Lab: Sparse vs. dense rewards, potential-based shaping, reward hacking experiments</span>
+                    <p>Turn a task into an RFT prompt dataset and upload it to S3, then configure and launch a multi-turn RL training job with the <code>MultiTurnRLTrainer</code> SDK. Choose hyperparameters (batch size, group size, rollout concurrency, algorithm), submit the job against your deployed agent, and watch reward and token curves in MLflow.</p>
+                    <span class="lab-tag">Lab: Preprocess prompts and launch an end-to-end training job</span>
                 </li>
                 <li>
                     <div class="part-header">
                         <span class="part-num">Part 4</span>
-                        <span class="part-title">Evaluation, Deployment &amp; Wrap-Up</span>
-                        <span class="part-time">30 min</span>
+                        <span class="part-title">Best Practices</span>
+                        <span class="part-time">Discussion</span>
                     </div>
-                    <p>Trajectory-level evaluation metrics, failure diagnosis via trajectory visualization, MLflow dashboards for stability warnings. One-click deployment to Amazon Bedrock. Future directions and Q&amp;A.</p>
-                    <span class="lab-tag">Lab: Evaluate, diagnose, and deploy trained agents</span>
+                    <p>What actually makes MTRL work: build an environment that is cheap, reproducible, and representative; set up a trustworthy external evaluation <em>before</em> you train; design a reward that reflects real task success without inviting reward hacking; manage what changes across turns and the turn budget; and monitor the right training metrics. See <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best practices for multi-turn RL</a>.</p>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 5</span>
+                        <span class="part-title">Evaluation &amp; Deployment</span>
+                        <span class="part-time">Hands-on</span>
+                    </div>
+                    <p>Run your agent against a held-out prompt set with the <code>MultiTurnRLEvaluator</code> to report reward, pass@k, and trajectory metrics, and compare the fine-tuned model against its base. Then deploy the resulting Model Package - to a SageMaker AI inference endpoint or by importing into Amazon Bedrock. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-evaluation.html" target="_blank" rel="noopener">Model evaluation</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-deployment.html" target="_blank" rel="noopener">Model deployment</a>.</p>
+                    <span class="lab-tag">Lab: Evaluate on held-out prompts and deploy the fine-tuned model</span>
                 </li>
             </ul>
         </section>
