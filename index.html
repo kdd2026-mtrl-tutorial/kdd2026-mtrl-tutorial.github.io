@@ -71,8 +71,77 @@
             text-decoration: none;
         }
 
+        .header-facts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .header-facts .fact {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+
+        .header-facts .fact-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.75;
+        }
+
+        .header-facts .fact-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Sticky section navigation */
+        .section-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-nav ul {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-nav a {
+            display: inline-block;
+            padding: 14px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .section-nav a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Offset anchor targets so the sticky nav doesn't cover section headings */
         section {
             padding: 48px 0;
+            scroll-margin-top: 60px;
         }
 
         section + section {
@@ -96,6 +165,19 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 24px;
+            text-align: center;
+        }
+
+        .tutor-card .photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 3px solid var(--border);
+            margin: 0 auto 16px;
+            display: block;
+            background: var(--bg);
         }
 
         .tutor-card h3 {
@@ -140,6 +222,25 @@
         }
 
         .tutor-card .email:hover {
+            text-decoration: underline;
+        }
+
+        .tutor-card .links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .tutor-card .links a {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .tutor-card .links a:hover {
             text-decoration: underline;
         }
 
@@ -206,32 +307,81 @@
             line-height: 1.7;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
+        .abstract code {
+            background: #eef1f5;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.88em;
         }
 
-        .info-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
+        .feature-list {
+            margin: 16px 0 0;
+            padding-left: 22px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+        }
+
+        .feature-list li strong {
+            color: var(--text);
+        }
+
+        .figure {
+            margin: 28px 0 8px;
             text-align: center;
         }
 
-        .info-item .label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
+        .figure img {
+            width: 100%;
+            height: auto;
+            max-width: 900px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
         }
 
-        .info-item .value {
+        .figure figcaption {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .subsection {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin: 32px 0 16px;
+        }
+
+        .resource-list {
+            list-style: none;
+        }
+
+        .resource-list li {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+        }
+
+        .resource-list li a {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .resource-list li a:hover {
+            text-decoration: underline;
+        }
+
+        .resource-list li .desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
         footer {
@@ -266,75 +416,123 @@
         <div class="container">
             <span class="badge">KDD 2026 HANDS-ON TUTORIAL</span>
             <h1>Multi-Turn Reinforcement Learning for Large Language Models: From Theory to Practice with Amazon SageMaker AI</h1>
-            <p class="meta">August 9&ndash;13, 2026 &middot; Jeju Island, Republic of Korea</p>
+            <p class="meta">Tutorial: August 10, 2026 &middot; 1:00&ndash;5:00 PM (KST) &middot; Jeju Island, Republic of Korea</p>
+            <div class="header-facts">
+                <div class="fact"><span class="fact-label">Duration</span><span class="fact-value">3 Hours</span></div>
+                <div class="fact"><span class="fact-label">Format</span><span class="fact-value">Hands-on Labs</span></div>
+                <div class="fact"><span class="fact-label">Prerequisites</span><span class="fact-value">Python + DL Basics</span></div>
+                <div class="fact"><span class="fact-label">Compute</span><span class="fact-value">Cloud (No Local GPU)</span></div>
+            </div>
         </div>
     </header>
 
+    <nav class="section-nav">
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#organizers">Organizers</a></li>
+            <li><a href="#outline">Tutorial Outline</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#materials">Materials</a></li>
+        </ul>
+    </nav>
+
     <main class="container">
-        <section>
+        <section id="overview">
             <h2>Overview</h2>
-            <p class="abstract">
-                Production LLM-based systems such as coding agents, web navigators, and tool-calling assistants operate over multiple turns of interaction with users, tools, and environments. This hands-on tutorial provides both a rigorous algorithmic and practical introduction to multi-turn RL finetuning for LLMs. Using Amazon SageMaker AI, participants progress through four labs: (1) environment and reward function design, (2) multi-turn trajectory collection and GRPO-based training, (3) reward densification and credit assignment strategies, and (4) evaluation, failure diagnosis and deployment.
+            <p class="abstract" style="font-size: 1.05rem; color: var(--text);"><strong>Welcome!</strong></p>
+
+            <p class="abstract" style="margin-top: 16px;">
+                <strong>Model customization and multi-turn RL.</strong> Most off-the-shelf frontier models under-perform on a given agentic system because of the environment-specific complexities they were never trained against. Customizing a model changes that: it bakes in your agent/harness/environment-specific behavior, gives you control over output quality and style, and - by virtue of running a smaller model - delivers faster, cheaper inference. Multi-turn reinforcement learning (RL) is how you get there: it trains an agent to make good decisions across a <em>sequence</em> of steps, not just in a single moment.
             </p>
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="label">Duration</div>
-                    <div class="value">3 Hours</div>
-                </div>
-                <div class="info-item">
-                    <div class="label">Format</div>
-                    <div class="value">Hands-on Labs</div>
-                </div>
-                <div class="info-item">
-                    <div class="label">Prerequisites</div>
-                    <div class="value">Python + DL Basics</div>
-                </div>
-                <div class="info-item">
-                    <div class="label">Compute</div>
-                    <div class="value">Cloud (No Local GPU)</div>
-                </div>
-            </div>
+
+            <p class="abstract" style="margin-top: 16px;">
+                <strong>MTRL on Amazon SageMaker AI.</strong> This hands-on tutorial provides a practical introduction to multi-turn RL fine-tuning for LLMs on Amazon SageMaker AI. We will run end-to-end training jobs, standalone evaluations, and learn best practices to actually maximize the benefits of MTRL for your agentic environment. You will train the <strong>GPT-OSS-20B</strong> model to drive an agent hosted on Amazon Bedrock AgentCore, using the <code>aircraft_inspection</code> task from <a href="https://github.com/amazon-science/SOP-Bench" target="_blank" rel="noopener">SOP-Bench</a> as a concrete, reward-scored environment. SageMaker AI MTRL offers:
+            </p>
+            <ul class="feature-list">
+                <li><strong>A modular agent-environment interface</strong> that keeps integration low-code while giving you full algorithmic control. Custom rewards, custom tool loops, and multi-turn conversation shapes are all yours to define.</li>
+                <li><strong>Serverless execution</strong> that simplifies infrastructure concerns, so you get production-scale agentic RL at per-token pricing without provisioning or managing GPU clusters.</li>
+                <li><strong>Asynchronous rollout and trajectory collection</strong> with bounded off-policy staleness. Generation and gradient updates run in parallel without drifting too far from the current policy, which speeds up training.</li>
+                <li><strong>A native algorithm library</strong> spanning Proximal Policy Optimization (PPO), Clipped Importance Sampling Policy Optimization (CISPO), and importance-sampling (IS) losses, paired with multiple group-based advantage estimators (GRPO, GRPO pass@k, RLOO, and more) - covering the choices most relevant to multi-turn agentic RL.</li>
+                <li><strong>Sequence-extension training</strong> to keep wall-clock down on long multi-turn trajectories.</li>
+                <li><strong>Trajectory and reward observability in MLflow</strong> managed by Amazon SageMaker AI, so you can read what your agent did turn by turn, and across training steps.</li>
+                <li><strong>Evaluation jobs</strong> that report reward, pass@k, trajectory metrics, and more before you deploy to a SageMaker AI endpoint or Amazon Bedrock.</li>
+            </ul>
+            <figure class="figure">
+                <img src="images/service-overview.jpg" alt="SageMaker AI Multi-Turn RL service overview: your agent RL environment communicates bidirectionally with the SageMaker job runtime (Sample, SampleWithResponseStream, CompleteRollout, UpdateReward); the MTRL service runs a training loop and trajectory collection plus evaluation, is driven by the MultiTurnRLTrainer, MultiTurnRLEvaluator, and ModelBuilder SDKs, and writes outputs to a Model Package, checkpoints in S3, CloudWatch, and MLflow.">
+                <figcaption>Amazon SageMaker AI Multi-Turn RL - service overview.</figcaption>
+            </figure>
         </section>
 
-        <section>
-            <h2>Tutors</h2>
-            <p class="abstract" style="margin-bottom: 20px;">All authors are part of the Amazon team that launched Reinforcement Fine-Tuning (RFT) as a service on Amazon SageMaker AI and Amazon Bedrock, enabling developers to customize leading open-source models using techniques like RFT, Supervised Fine-Tuning (SFT), and Direct Preference Optimization (DPO).</p>
+        <section id="organizers">
+            <h2>Organizers</h2>
+            <p class="abstract" style="margin-bottom: 20px;">The organizers lead the science and building of model customization services on Amazon SageMaker AI and Amazon Bedrock, and launched techniques like <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models.html" target="_blank" rel="noopener">Reinforcement Fine-Tuning (RFT)</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl.html" target="_blank" rel="noopener">Multi-Turn RL (MTRL)</a>, enabling developers to customize leading open-source models such as <strong>Qwen3.6-27B</strong>, <strong>Gemma-4-31B-it</strong>, and <strong>GPT-OSS-20B</strong>.</p>
             <div class="tutors-grid">
                 <div class="tutor-card">
+                    <img class="photo" src="images/sapana.jpg" alt="Sapana Chaudhary">
                     <h3>Sapana Chaudhary</h3>
                     <span class="presenter-badge">In-Person Presenter</span>
-                    <div class="role">Amazon Web Services</div>
+                    <div class="role">Amazon AGI</div>
                     <div class="affiliation">Applied Scientist at AWS. Recent work spans RL-based code optimization, neuro-symbolic reward modeling for chain-of-thought validation, reasoning distillation, LLM-based web agents, risk-averse RLHF, and pedagogical alignment of LLMs.</div>
-                    <a class="email" href="mailto:chausapa@amazon.com">chausapa@amazon.com</a>
+                    <div class="links">
+                        <a class="email" href="mailto:chausapa@amazon.com">Email</a>
+                        <a href="https://sapanachaudhary.github.io/" target="_blank" rel="noopener">Website</a>
+                    </div>
                 </div>
                 <div class="tutor-card">
+                    <img class="photo" src="images/theodore.jpg" alt="Theodore Vasiloudis">
+                    <h3>Theodore Vasiloudis</h3>
+                    <div class="role">Amazon AGI</div>
+                    <div class="affiliation">Senior Applied Scientist at AWS, where he works on large language model post-training, with a focus on scale and efficiency. He works at the intersection of systems and algorithms, developing training frameworks and services for AWS customers looking to fine-tune models at scale. Theodore holds a PhD from KTH Royal Institute of Technology, Stockholm.</div>
+                    <div class="links">
+                        <a class="email" href="mailto:thvasilo@amazon.com">Email</a>
+                        <a href="https://scholar.google.com/citations?user=8ZYWbzgAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+                    </div>
+                </div>
+                <div class="tutor-card">
+                    <img class="photo" src="images/zhe.png" alt="Zhe Wang">
                     <h3>Zhe Wang</h3>
-                    <div class="role">Amazon Web Services</div>
+                    <div class="role">Amazon AGI</div>
                     <div class="affiliation">Applied Scientist at AWS. Working on LLM post-training and reinforcement fine-tuning. Research spans responsible AI alignment and scalable optimization methods.</div>
-                    <a class="email" href="mailto:zhebeta@amazon.com">zhebeta@amazon.com</a>
+                    <div class="links">
+                        <a class="email" href="mailto:zhebeta@amazon.com">Email</a>
+                        <a href="https://scholar.google.com/citations?hl=en&user=fqNkQjgAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">Google Scholar</a>
+                    </div>
                 </div>
                 <div class="tutor-card">
+                    <img class="photo" src="images/jiayu.jpg" alt="Jiayu Li">
                     <h3>Jiayu Li</h3>
-                    <div class="role">Amazon Web Services</div>
+                    <div class="role">Amazon AGI</div>
                     <div class="affiliation">Applied Scientist at AWS. Recent research spans RL-based prompt optimization, data synthesis from limited seed data for supervised fine-tuning, and RL-based inverse design for circuits.</div>
-                    <a class="email" href="mailto:jlijiayu@amazon.com">jlijiayu@amazon.com</a>
+                    <div class="links">
+                        <a class="email" href="mailto:jlijiayu@amazon.com">Email</a>
+                        <a href="https://scholar.google.com/citations?user=2Z_k5MUAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+                    </div>
                 </div>
                 <div class="tutor-card">
+                    <img class="photo" src="images/bernie.jpg" alt="Yuyang (Bernie) Wang">
                     <h3>Yuyang (Bernie) Wang</h3>
-                    <div class="role">Amazon Web Services</div>
+                    <span class="presenter-badge">In-Person Presenter</span>
+                    <div class="role">Amazon AGI</div>
                     <div class="affiliation">Principal Scientist at Amazon, where he aims to democratize advanced AI/ML capabilities, making them accessible to practitioners across diverse domains.</div>
-                    <a class="email" href="mailto:yuyawang@amazon.com">yuyawang@amazon.com</a>
+                    <div class="links">
+                        <a class="email" href="mailto:yuyawang@amazon.com">Email</a>
+                        <a href="https://web.mit.edu/~ywang02/www/" target="_blank" rel="noopener">Website</a>
+                    </div>
                 </div>
                 <div class="tutor-card">
-                    <h3>Xuan Zhu</h3>
-                    <div class="role">Amazon Web Services</div>
-                    <div class="affiliation">Applied Science Manager at AWS. Leads model customization services including Reinforcement Fine-Tuning on SageMaker AI and Amazon Bedrock. Her team builds production-grade infrastructure for model post-training at scale.</div>
-                    <a class="email" href="mailto:zhuxuan@amazon.com">zhuxuan@amazon.com</a>
+                    <img class="photo" src="images/jennifer.jpg" alt="Jennifer Zhu">
+                    <h3>Jennifer Zhu</h3>
+                    <div class="role">Microsoft</div>
+                    <div class="affiliation">Previously Applied Science Manager at AWS, where she led model customization services including Reinforcement Fine-Tuning on SageMaker AI and Amazon Bedrock, building production-grade infrastructure for model post-training at scale.</div>
+                    <div class="links">
+                        <a class="email" href="mailto:zhuxuan@amazon.com">Email</a>
+                        <a href="https://www.ischool.berkeley.edu/people/jennifer-zhu" target="_blank" rel="noopener">Website</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section>
+        <section id="outline">
             <h2>Tutorial Outline</h2>
             <ul class="outline-list">
                 <li>
@@ -376,14 +574,41 @@
             </ul>
         </section>
 
-        <section>
-            <h2>Target Audience</h2>
-            <p class="abstract">
-                ML engineers, data scientists, applied researchers, and technical leaders who build LLM-powered multi-turn agentic systems (coding assistants, conversational agents, tool-using systems, web automation). Basic Python and Jupyter notebook familiarity and a foundational understanding of deep learning and LLM architectures (transformers, tokenization) are the only prerequisites. No prior experience with reinforcement learning or SageMaker is required.
-            </p>
+        <section id="resources">
+            <h2>Resources</h2>
+            <ul class="resource-list">
+                <li>
+                    <a href="https://aws.amazon.com/about-aws/whats-new/2026/06/multi-turn-reinforcement-learning-on-sagemaker-ai/" target="_blank" rel="noopener">MTRL Launch Announcement</a>
+                    <div class="desc">Multi-turn reinforcement learning on Amazon SageMaker AI - the official launch announcement.</div>
+                </li>
+                <li>
+                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl.html" target="_blank" rel="noopener">MTRL User Guide</a>
+                    <div class="desc">Amazon SageMaker AI developer guide for multi-turn RL fine-tuning.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best Practices for Multi-Turn RL in Amazon SageMaker AI</a>
+                    <div class="desc">AWS Machine Learning Blog post on best practices for multi-turn reinforcement learning.</div>
+                </li>
+            </ul>
+
+            <h3 class="subsection">More from the team</h3>
+            <ul class="resource-list">
+                <li>
+                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models.html" target="_blank" rel="noopener">Customizing Models on Amazon SageMaker AI</a>
+                    <div class="desc">Developer guide overview of model customization options on SageMaker AI.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/reinforcement-fine-tuning-on-amazon-bedrock-best-practices/" target="_blank" rel="noopener">Reinforcement Fine-Tuning on Amazon Bedrock: Best Practices</a>
+                    <div class="desc">AWS Machine Learning Blog post on RFT best practices on Amazon Bedrock.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/fine-tune-nvidia-nemotron-3-models-with-amazon-sagemaker-ai-serverless-model-customization/" target="_blank" rel="noopener">Fine-tune NVIDIA Nemotron-3 Models with SageMaker AI Serverless Model Customization</a>
+                    <div class="desc">AWS Machine Learning Blog post on serverless model customization with SageMaker AI.</div>
+                </li>
+            </ul>
         </section>
 
-        <section>
+        <section id="materials">
             <h2>Materials</h2>
             <p class="abstract">
                 All notebooks, environment code, reward function templates, slides, and demo videos will be provided via a public GitHub repository. Materials will be posted here closer to the tutorial date.
