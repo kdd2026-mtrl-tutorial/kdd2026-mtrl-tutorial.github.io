@@ -463,14 +463,14 @@
     <nav class="section-nav">
         <ul>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#organizers">Organizers</a></li>
             <li><a href="#outline">Tutorial Outline</a></li>
             <li><a href="#resources">Resources</a></li>
-            <li><a href="#materials">Materials</a></li>
+            <li><a href="#organizers">Organizers</a></li>
         </ul>
     </nav>
 
     <main class="container">
+
         <section id="overview">
 
             <p class="abstract">
@@ -492,6 +492,95 @@
                 <li><strong>Sequence-extension training</strong> to keep wall-clock down on long multi-turn trajectories.</li>
                 <li><strong>Trajectory and reward observability in MLflow</strong> managed by Amazon SageMaker AI, so you can read what your agent did turn by turn, and across training steps.</li>
                 <li><strong>Evaluation jobs</strong> that report reward, pass@k, trajectory metrics, and more before you deploy to a SageMaker AI endpoint or Amazon Bedrock.</li>
+            </ul>
+        </section>
+
+        <section id="outline">
+            <h2>Tutorial Outline</h2>
+            <p class="abstract" style="margin-bottom: 20px;">Five parts that take you end to end: the foundations of multi-turn RL, then a hands-on path - set up and deploy your agent, preprocess data and launch training, apply best practices to get MTRL working for your task, and finally evaluate and deploy the fine-tuned model.</p>
+            <ul class="outline-list">
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 1</span>
+                        <span class="part-title">Motivation &amp; Foundations</span>
+                        <span class="part-time">Talk</span>
+                    </div>
+                    <p>Why single-turn training falls short for agentic systems, and the core ideas behind multi-turn RL: framing an agentic task as a sequence of decisions, the multi-turn rollout, reward design (trajectory-level, turn-level, composite), and the GRPO family of algorithms. Grounds the hands-on parts that follow.</p>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 2</span>
+                        <span class="part-title">Environment Setup: Agent &amp; Rollout Deployment</span>
+                        <span class="part-time">Hands-on</span>
+                    </div>
+                    <p>How the agent participates in the training loop: SageMaker AI sends a prompt, your agent calls the policy model, takes actions in your environment, and reports a reward. We implement the SOP-Bench rollout agent and deploy it to Amazon Bedrock AgentCore, and cover how to integrate <em>any</em> agent or environment - managed on AgentCore or bring-your-own. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-agent.html" target="_blank" rel="noopener">Preparing your agent</a>.</p>
+                    <span class="lab-tag">Lab: Implement and deploy the rollout agent to AgentCore</span>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 3</span>
+                        <span class="part-title">Data Preprocessing &amp; Training Job Submission</span>
+                        <span class="part-time">Hands-on</span>
+                    </div>
+                    <p>Turn a task into an RFT prompt dataset and upload it to S3, then configure and launch a multi-turn RL training job with the <code>MultiTurnRLTrainer</code> SDK. Choose hyperparameters (batch size, group size, rollout concurrency, algorithm), submit the job against your deployed agent, and watch reward and token curves in MLflow.</p>
+                    <span class="lab-tag">Lab: Preprocess prompts and launch an end-to-end training job</span>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 4</span>
+                        <span class="part-title">Best Practices</span>
+                        <span class="part-time">Discussion</span>
+                    </div>
+                    <p>What actually makes MTRL work: build an environment that is cheap, reproducible, and representative; set up a trustworthy external evaluation <em>before</em> you train; design a reward that reflects real task success without inviting reward hacking; manage what changes across turns and the turn budget; and monitor the right training metrics. See <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best practices for multi-turn RL</a>.</p>
+                </li>
+                <li>
+                    <div class="part-header">
+                        <span class="part-num">Part 5</span>
+                        <span class="part-title">Evaluation &amp; Deployment</span>
+                        <span class="part-time">Hands-on</span>
+                    </div>
+                    <p>Run your agent against a held-out prompt set with the <code>MultiTurnRLEvaluator</code> to report reward, pass@k, and trajectory metrics, and compare the fine-tuned model against its base. Then deploy the resulting Model Package - to a SageMaker AI inference endpoint or by importing into Amazon Bedrock. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-evaluation.html" target="_blank" rel="noopener">Model evaluation</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-deployment.html" target="_blank" rel="noopener">Model deployment</a>.</p>
+                    <span class="lab-tag">Lab: Evaluate on held-out prompts and deploy the fine-tuned model</span>
+                </li>
+            </ul>
+
+            <h3 class="subsection">Materials</h3>
+            <p class="abstract">
+                All notebooks, environment code, reward function templates, slides, and demo videos will be provided via a public GitHub repository. Materials will be posted here closer to the tutorial date.
+            </p>
+        </section>
+
+        <section id="resources">
+            <h2>Resources</h2>
+            <ul class="resource-list">
+                <li>
+                    <a href="https://aws.amazon.com/about-aws/whats-new/2026/06/multi-turn-reinforcement-learning-on-sagemaker-ai/" target="_blank" rel="noopener">MTRL Launch Announcement</a>
+                    <div class="desc">Multi-turn reinforcement learning on Amazon SageMaker AI - the official launch announcement.</div>
+                </li>
+                <li>
+                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl.html" target="_blank" rel="noopener">MTRL User Guide</a>
+                    <div class="desc">Amazon SageMaker AI developer guide for multi-turn RL fine-tuning.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best Practices for Multi-Turn RL in Amazon SageMaker AI</a>
+                    <div class="desc">AWS Machine Learning Blog post on best practices for multi-turn reinforcement learning.</div>
+                </li>
+            </ul>
+
+            <h3 class="subsection">More from the team</h3>
+            <ul class="resource-list">
+                <li>
+                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models.html" target="_blank" rel="noopener">Customizing Models on Amazon SageMaker AI</a>
+                    <div class="desc">Developer guide overview of model customization options on SageMaker AI.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/reinforcement-fine-tuning-on-amazon-bedrock-best-practices/" target="_blank" rel="noopener">Reinforcement Fine-Tuning on Amazon Bedrock: Best Practices</a>
+                    <div class="desc">AWS Machine Learning Blog post on RFT best practices on Amazon Bedrock.</div>
+                </li>
+                <li>
+                    <a href="https://aws.amazon.com/blogs/machine-learning/fine-tune-nvidia-nemotron-3-models-with-amazon-sagemaker-ai-serverless-model-customization/" target="_blank" rel="noopener">Fine-tune NVIDIA Nemotron-3 Models with SageMaker AI Serverless Model Customization</a>
+                    <div class="desc">AWS Machine Learning Blog post on serverless model customization with SageMaker AI.</div>
+                </li>
             </ul>
         </section>
 
@@ -560,96 +649,6 @@
             </div>
         </section>
 
-        <section id="outline">
-            <h2>Tutorial Outline</h2>
-            <p class="abstract" style="margin-bottom: 20px;">Five parts that take you end to end: the foundations of multi-turn RL, then a hands-on path - set up and deploy your agent, preprocess data and launch training, apply best practices to get MTRL working for your task, and finally evaluate and deploy the fine-tuned model.</p>
-            <ul class="outline-list">
-                <li>
-                    <div class="part-header">
-                        <span class="part-num">Part 1</span>
-                        <span class="part-title">Motivation &amp; Foundations</span>
-                        <span class="part-time">Talk</span>
-                    </div>
-                    <p>Why single-turn training falls short for agentic systems, and the core ideas behind multi-turn RL: framing an agentic task as a sequence of decisions, the multi-turn rollout, reward design (trajectory-level, turn-level, composite), and the GRPO family of algorithms. Grounds the hands-on parts that follow.</p>
-                </li>
-                <li>
-                    <div class="part-header">
-                        <span class="part-num">Part 2</span>
-                        <span class="part-title">Environment Setup: Agent &amp; Rollout Deployment</span>
-                        <span class="part-time">Hands-on</span>
-                    </div>
-                    <p>How the agent participates in the training loop: SageMaker AI sends a prompt, your agent calls the policy model, takes actions in your environment, and reports a reward. We implement the SOP-Bench rollout agent and deploy it to Amazon Bedrock AgentCore, and cover how to integrate <em>any</em> agent or environment - managed on AgentCore or bring-your-own. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-agent.html" target="_blank" rel="noopener">Preparing your agent</a>.</p>
-                    <span class="lab-tag">Lab: Implement and deploy the rollout agent to AgentCore</span>
-                </li>
-                <li>
-                    <div class="part-header">
-                        <span class="part-num">Part 3</span>
-                        <span class="part-title">Data Preprocessing &amp; Training Job Submission</span>
-                        <span class="part-time">Hands-on</span>
-                    </div>
-                    <p>Turn a task into an RFT prompt dataset and upload it to S3, then configure and launch a multi-turn RL training job with the <code>MultiTurnRLTrainer</code> SDK. Choose hyperparameters (batch size, group size, rollout concurrency, algorithm), submit the job against your deployed agent, and watch reward and token curves in MLflow.</p>
-                    <span class="lab-tag">Lab: Preprocess prompts and launch an end-to-end training job</span>
-                </li>
-                <li>
-                    <div class="part-header">
-                        <span class="part-num">Part 4</span>
-                        <span class="part-title">Best Practices</span>
-                        <span class="part-time">Discussion</span>
-                    </div>
-                    <p>What actually makes MTRL work: build an environment that is cheap, reproducible, and representative; set up a trustworthy external evaluation <em>before</em> you train; design a reward that reflects real task success without inviting reward hacking; manage what changes across turns and the turn budget; and monitor the right training metrics. See <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best practices for multi-turn RL</a>.</p>
-                </li>
-                <li>
-                    <div class="part-header">
-                        <span class="part-num">Part 5</span>
-                        <span class="part-title">Evaluation &amp; Deployment</span>
-                        <span class="part-time">Hands-on</span>
-                    </div>
-                    <p>Run your agent against a held-out prompt set with the <code>MultiTurnRLEvaluator</code> to report reward, pass@k, and trajectory metrics, and compare the fine-tuned model against its base. Then deploy the resulting Model Package - to a SageMaker AI inference endpoint or by importing into Amazon Bedrock. See <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-evaluation.html" target="_blank" rel="noopener">Model evaluation</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl-deployment.html" target="_blank" rel="noopener">Model deployment</a>.</p>
-                    <span class="lab-tag">Lab: Evaluate on held-out prompts and deploy the fine-tuned model</span>
-                </li>
-            </ul>
-        </section>
-
-        <section id="resources">
-            <h2>Resources</h2>
-            <ul class="resource-list">
-                <li>
-                    <a href="https://aws.amazon.com/about-aws/whats-new/2026/06/multi-turn-reinforcement-learning-on-sagemaker-ai/" target="_blank" rel="noopener">MTRL Launch Announcement</a>
-                    <div class="desc">Multi-turn reinforcement learning on Amazon SageMaker AI - the official launch announcement.</div>
-                </li>
-                <li>
-                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-customize-mtrl.html" target="_blank" rel="noopener">MTRL User Guide</a>
-                    <div class="desc">Amazon SageMaker AI developer guide for multi-turn RL fine-tuning.</div>
-                </li>
-                <li>
-                    <a href="https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai/" target="_blank" rel="noopener">Best Practices for Multi-Turn RL in Amazon SageMaker AI</a>
-                    <div class="desc">AWS Machine Learning Blog post on best practices for multi-turn reinforcement learning.</div>
-                </li>
-            </ul>
-
-            <h3 class="subsection">More from the team</h3>
-            <ul class="resource-list">
-                <li>
-                    <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/customizing-models.html" target="_blank" rel="noopener">Customizing Models on Amazon SageMaker AI</a>
-                    <div class="desc">Developer guide overview of model customization options on SageMaker AI.</div>
-                </li>
-                <li>
-                    <a href="https://aws.amazon.com/blogs/machine-learning/reinforcement-fine-tuning-on-amazon-bedrock-best-practices/" target="_blank" rel="noopener">Reinforcement Fine-Tuning on Amazon Bedrock: Best Practices</a>
-                    <div class="desc">AWS Machine Learning Blog post on RFT best practices on Amazon Bedrock.</div>
-                </li>
-                <li>
-                    <a href="https://aws.amazon.com/blogs/machine-learning/fine-tune-nvidia-nemotron-3-models-with-amazon-sagemaker-ai-serverless-model-customization/" target="_blank" rel="noopener">Fine-tune NVIDIA Nemotron-3 Models with SageMaker AI Serverless Model Customization</a>
-                    <div class="desc">AWS Machine Learning Blog post on serverless model customization with SageMaker AI.</div>
-                </li>
-            </ul>
-        </section>
-
-        <section id="materials">
-            <h2>Materials</h2>
-            <p class="abstract">
-                All notebooks, environment code, reward function templates, slides, and demo videos will be provided via a public GitHub repository. Materials will be posted here closer to the tutorial date.
-            </p>
-        </section>
     </main>
 
     <footer>
