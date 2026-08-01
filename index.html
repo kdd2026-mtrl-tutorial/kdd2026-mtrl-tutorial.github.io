@@ -41,6 +41,29 @@
             text-align: center;
         }
 
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header-inner .aws-logo {
+            height: 72px;
+            width: auto;
+            flex-shrink: 0;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        footer .aws-logo {
+            height: 40px;
+            width: auto;
+            display: block;
+            margin: 0 auto 14px;
+        }
+
         header .badge {
             display: inline-block;
             background: var(--accent);
@@ -57,8 +80,7 @@
             font-size: 1.75rem;
             font-weight: 700;
             line-height: 1.3;
-            max-width: 800px;
-            margin: 0 auto 16px;
+            margin: 0 0 16px;
         }
 
         header .tagline {
@@ -66,8 +88,7 @@
             font-weight: 600;
             font-style: italic;
             color: var(--accent);
-            max-width: 700px;
-            margin: 0 auto 16px;
+            margin: 0 0 16px;
         }
 
         header .meta {
@@ -374,6 +395,16 @@
                 font-size: 1.3rem;
             }
 
+            .header-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
             .tutors-grid {
                 grid-template-columns: 1fr;
             }
@@ -390,11 +421,14 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <span class="badge">KDD 2026 HANDS-ON TUTORIAL</span>
-            <h1>Multi-Turn Reinforcement Learning for Large Language Models: From Theory to Practice with Amazon SageMaker AI</h1>
-            <p class="tagline">Turn open-source models into agents that outperform their size.</p>
-            <p class="meta">Tutorial: August 10, 2026 &middot; 1:00&ndash;5:00 PM (KST) &middot; Jeju Island, Republic of Korea</p>
+        <div class="container header-inner">
+            <img class="aws-logo" src="images/aws-logo-white.png" alt="Amazon Web Services">
+            <div class="header-text">
+                <span class="badge">KDD 2026 HANDS-ON TUTORIAL</span>
+                <h1>Multi-Turn Reinforcement Learning for Large Language Models: From Theory to Practice with Amazon SageMaker AI</h1>
+                <!-- <p class="tagline">Turn open-source models into agents that outperform their size.</p> -->
+                <p class="meta">August 10, 2026 &middot; 1:00&ndash;5:00 PM (KST) &middot; Jeju Island, Republic of Korea</p>
+            </div>
         </div>
     </header>
 
@@ -592,6 +626,7 @@
 
     <footer>
         <div class="container">
+            <img class="aws-logo" src="images/aws-logo-white.png" alt="Amazon Web Services">
             <p>KDD 2026 &middot; 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining &middot; Jeju Island, Republic of Korea</p>
         </div>
     </footer>
