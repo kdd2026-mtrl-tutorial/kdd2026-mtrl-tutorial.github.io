@@ -417,6 +417,24 @@
             font-size: 0.85rem;
         }
 
+        footer .footer-links {
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
             header h1 {
                 font-size: 1.3rem;
@@ -632,7 +650,7 @@
                     <h3>Yuyang (Bernie) Wang</h3>
                     <span class="presenter-badge">In-Person Presenter</span>
                     <div class="role">NTT Data AIVista</div>
-                    <div class="affiliation">Previously at AWS. Works to democratize advanced AI/ML capabilities across domains.</div>
+                    <div class="affiliation">Member of Technical Staff at NTT Data AIVista; previously at AWS. Works to democratize advanced AI/ML capabilities across domains.</div>
                     <div class="links">
                         <a href="https://web.mit.edu/~ywang02/www/" target="_blank" rel="noopener">Website</a>
                     </div>
@@ -654,6 +672,10 @@
     <footer>
         <div class="container">
             <img class="aws-logo" src="images/aws-logo-white.png" alt="Amazon Web Services">
+            <div class="footer-links">
+                <a href="https://docs.google.com/forms/d/1RLLWfMcSn3qJpN87N3OHtSUKqZcD3Up7Jpx4KrsLDbU/viewform" target="_blank" rel="noopener">Starter Survey</a>
+                <a href="https://catalog.us-east-1.prod.workshops.aws/sign-in?redirect=%2Fjoin" target="_blank" rel="noopener">AWS Workshop Studio</a>
+            </div>
             <p>KDD 2026 &middot; 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining &middot; Jeju Island, Republic of Korea</p>
         </div>
     </footer>
